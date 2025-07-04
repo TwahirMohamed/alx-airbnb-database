@@ -1,6 +1,7 @@
 
 
 -- Initial complex query with WHERE filter for demonstration
+EXPLAIN
 SELECT 
     booking.booking_id,
     booking.start_date,
