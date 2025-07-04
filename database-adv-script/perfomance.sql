@@ -1,22 +1,28 @@
--- Initial query: Retrieve all bookings with user, property, and payment details
+
+
+-- Initial complex query with WHERE filter for demonstration
 SELECT 
-    Booking.booking_id,
-    Booking.start_date,
-    Booking.end_date,
-    Booking.total_price,
-    Booking.status,
-    User.user_id,
-    User.first_name,
-    User.last_name,
-    User.email,
-    Property.property_id,
-    Property.name AS property_name,
-    Property.location,
-    Payment.payment_id,
-    Payment.amount,
-    Payment.payment_method,
-    Payment.payment_date
-FROM Booking
-INNER JOIN User ON Booking.user_id = User.user_id
-INNER JOIN Property ON Booking.property_id = Property.property_id
-LEFT JOIN Payment ON Booking.booking_id = Payment.booking_id;
+    booking.booking_id,
+    booking.start_date,
+    booking.end_date,
+    booking.total_price,
+    booking.status,
+    user.user_id,
+    user.name AS user_name,
+    user.email AS user_email,
+    property.property_id,
+    property.name AS property_name,
+    property.location AS property_location,
+    payment.payment_id,
+    payment.amount,
+    payment.payment_date
+FROM 
+    booking
+INNER JOIN 
+    user ON booking.user_id = user.user_id
+INNER JOIN 
+    property ON booking.property_id = property.property_id
+LEFT JOIN 
+    payment ON booking.booking_id = payment.booking_id
+WHERE 
+    booking.status = 'confirmed' AND payment.amount > 100;
