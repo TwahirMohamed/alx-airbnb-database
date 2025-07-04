@@ -1,5 +1,15 @@
 -- Partition Booking table by start_date year
-ALTER TABLE Booking
+CREATE TABLE Booking (
+    booking_id UUID PRIMARY KEY,
+    property_id UUID NOT NULL,
+    user_id UUID NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    total_price DECIMAL(10,2) NOT NULL,
+    status ENUM('pending', 'confirmed', 'canceled') NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
+    FOREIGN KEY (property_id) REFERENCES Properties(id) ON DELETE CASCADE
+)
 PARTITION BY RANGE (YEAR(start_date)) (
     PARTITION p_before2020 VALUES LESS THAN (2020),
     PARTITION p_2020 VALUES LESS THAN (2021),
